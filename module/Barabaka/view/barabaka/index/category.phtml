@@ -1,0 +1,150 @@
+<?php echo $this->headLink()->appendStylesheet($this->basePath('css/content_category.css')) ?>
+
+<?php
+$category = $this->category;
+$category_title = $this->category_title;
+$products_category_info = $this->products_category_info;
+$json_products_category = $this->json_products_category;
+//echo "<pre>!"; var_dump($products_category_info['page']); die();
+?>
+<div id="current_category" style="display: none;"><?=$category?></div>
+<div id="json_products_category" style="display: none;"><?=$json_products_category?></div>
+<div id="current_sub_category_name" style="display: none;"><?=$products_category_info['current_sub_category_name']?></div>
+<div id="current_page" style="display: none;"><?=$products_category_info['page']?></div>
+
+<div class="container">
+  <div class="content_main">
+    
+    <ol class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li class="active"><?=$category_title?></li>
+    </ol>
+    
+    <div class="row">
+      
+      <!--FILTERS SIDE-->
+      <div class="col-md-3">
+        <div class="filters-side">
+          <div class="filters-categories">
+            <h3><?=$category_title?></h3>
+            <ul class="sub_categories_list">
+            <?php $sub_categories = array('All', 'Cups', 'Useful things'); ?>
+            <?php foreach ( $sub_categories as $key => $name ): ?>
+              <li>
+                <?php $name_for_class = substr($name, 0, 6); ?>
+                <a class="sub_categ_<?=$name_for_class?> <?=$name==$current_sub_category_name?'active':''?>" href="#middle" onclick="setSubCategory('<?=$name?>')">
+                    <?=$name?><i class="icon icon-list"></i>
+                </a>
+              </li>
+            <?php endforeach; ?>
+            </ul>
+          </div>
+          <div class="filters-sort-box">
+            <h3>Sort by price</h3>
+            <div class="hr"></div>
+            <div class="price-trackbar"></div>
+            
+            <div class="price-des">
+              <span>Price</span>
+              <span class="info">$0-$200</span>
+            </div>
+          </div>
+        </div>
+      </div><!--filters END-->
+      
+      <div class="col-md-9">
+        
+        <!--FILTERS-LINE-->
+          <div class="filters-line">
+            
+            <form class="form-inline">
+              <div class="row">
+                
+                <div class="dropdown sort_by_listing form-group filters-line-box filters-perpage">
+                  <label>Sort by</label>
+                  <select class="dropdown-toggle form-control" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <option class="current_sorting_by" style="display: none;">
+                        <?=$products_category_info['sorting_by']?>
+                    </option>
+                  </select>
+                  <?php $sorting_by_array = array('Relevance', 'Price', 'Popularity'); ?>
+                  <ul class="dropdown-menu dropdown_listing" aria-labelledby="dropdownMenu2">
+                   <?php foreach ( $sorting_by_array as $items ): ?>
+                    <li><a href="#middle" onclick="set_sorting_by('<?=$items?>')"><?=$items?></a></li>
+                   <?php endforeach; ?>
+                  </ul>
+                  <span>per page</span>
+                </div>
+             
+                <div class="form-group filters-line-box">
+                  <a href="" class="view active"><i class="icon boxes-view-icon"></i></a>
+                  <a href="" class="view"><i class="icon inline-view-icon"></i></a>
+                </div>
+                
+                <div class="dropdown listing form-group filters-line-box filters-perpage">
+                  <label>Show</label>
+                  <select class="dropdown-toggle form-control" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <option class="current_items" style="display: none;">
+                        <?=$products_category_info['items_per_page']?>
+                    </option>
+                  </select>
+                  <ul class="dropdown-menu dropdown_listing" aria-labelledby="dropdownMenu1">
+                    <li><a href="#middle" onclick="set_items_per_page(6)">6</a></li>
+                    <li><a href="#middle" onclick="set_items_per_page(9)">9</a></li>
+                    <li><a href="#middle" onclick="set_items_per_page(12)">12</a></li>
+                  </ul>
+                  <span>per page</span>
+                </div>
+                
+              </div><!--row END-->
+            </form>
+          </div><!--filters-line END-->
+          
+           
+          <!--Products start-->
+          <div class="product-items"><?=$products_category_info['products']?></div><!--Product-items END-->
+          
+          <!--FILTERS-LINE-->
+          <div class="filters-line">
+            
+            <form class="form-inline">
+              <div class="row">
+                <div class="form-group filters-line-box">
+                  <nav class="">
+                    <ul id="pagination" class="pagination">
+                      <li>
+                        <a href="#" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <?php foreach ( $products_category_info['pagination_arr'] as $page => $page_products ): ?>
+                        <li class="page_<?=$page?> <?=$products_category_info['page']==$page?' active':''?>">
+                            <a href="#bottom" onclick="makeActiveCurrentPage(<?=$page?>);">
+                                <?=$page?>
+                            </a>
+                        </li>
+                      <?php endforeach; ?>
+                      <li>
+                        <a href="#" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div><!--row END-->
+            </form>
+          </div><!--filters-line END-->
+        
+      </div>
+      
+    </div><!--row END-->  
+  </div><!--content main END-->  
+</div><!--container END-->   
+<script>
+    function makeActive(page) {
+        //alert(page); return;
+        $('.pagination li.active').removeClass('active');
+        $('.page_'+page).addClass('active');
+    }
+</script>

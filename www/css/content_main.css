@@ -1,0 +1,34 @@
+
+
+/*--------- content main ------------*/
+.banner_main{
+    background-image:url('/../img/banner_main.jpg');
+    width:100%;
+    height:622px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    }
+
+
+
+/*** Collections ****/
+
+.collections-block{
+    width: 100%;
+    max-height: 220px;
+    background: #ddd;
+    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.3);
+    margin-bottom: 40px;
+    display: block;
+    -webkit-transition: all .2s ease-in-out;
+       -o-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;
+}
+.collections-block:hover{
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.5);
+}
+.collections-block.big{
+   max-height: 430px;
+}
+
+

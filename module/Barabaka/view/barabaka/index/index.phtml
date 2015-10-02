@@ -1,0 +1,102 @@
+<?php echo $this->headLink()->appendStylesheet($this->basePath('css/content_main.css')) ?>
+
+<?php
+$products = $this->layout()->products;
+$products_arr = $this->layout()->products_arr;
+$products_in_cart = $this->layout()->products_in_cart;
+?>
+<?php //echo "<pre>"; var_dump($products_arr);die();?>
+
+<div class="banner_main"></div>
+<div class="container">
+  <div name="middle" class="content_main">
+    <div class="row">
+      
+      <!--COLLECTIONS-->
+      <div class="col-xs-4 content-main-wrap">
+        <div class="collections">
+          <div class="title">
+            <h2>Our Promotion</h2>
+            <div class="hr"></div>
+          </div>
+          <div class="collections-blocks">
+            <a href="#middle" class="collections-block">
+              <img src="<?=$this->basePath('img/collection_top.jpg')?>" class="img-responsive"/>
+            </a>
+            <a href="#middle" class="collections-block big">
+              <img src="<?=$this->basePath('img/collection_middle.jpg')?>" class="img-responsive"/>
+            </a>
+            <a href="#middle" class="collections-block">
+              <img src="<?=$this->basePath('img/collection_bottom.jpg')?>" class="img-responsive"/>
+            </a>
+          </div><!-- collections-blocks END-->
+        </div><!-- collections END-->
+      </div><!-- content-main-wrap END-->
+      
+      <!--POPULAR ITEM-->
+      <div class="col-xs-8 popular-item-wrap">
+        
+        <div class="title">
+          <h2>Popular Items</h2>
+          <div class="hr"></div>
+        </div>
+        <div class="pr_in_cart">
+        <?php //echo "<pre>"; var_dump($products_in_cart); echo "</pre>"; ?>
+        </div>
+        <div class="popular-items">
+            <?php for ( $i = 1; $i < 10; ): ?>
+              <div class="row">
+                <?php for ( $j = 0; $j < 3; $j++, $i++ ): ?>
+                <div class="col-md-4 product-block-wrap">
+                  <div class="product-block">
+                  
+                    <div class="product-block-info overlay">
+                      <a href="#middle" class="product-name">
+                        <?=$products[$i]->getName()?>
+                      </a>
+                      <div class="price-box">
+                        <span class="price-old"><?=$products[$i]->getPriceOld()?></span>
+                        <span class="price-now"><?=$products[$i]->getPriceNew()?></span>
+                      </div>
+                      <?php if ( $products_in_cart[$i] ): ?>
+                          <a id="add_cart_<?=$i?>" href="#middle" class="btn btn-primary btn-cart"
+                          onclick="removeFromCart(<?=(int)$i?>);">
+                          Remove
+                          </a>
+                      <?php else: ?>
+                          <a id="add_cart_<?=$i?>" href="#middle" class="btn btn-primary btn-cart"
+                          onclick="addToCart(<?=(int)$i?>);">
+                          Add to Cart
+                          </a>
+                      <?php endif; ?>
+                    </div>
+                    
+                    <div class="product-block-img">
+                      <img src="<?=$this->basePath('img/'.$products[$i]->getImg())?>" class="img-responsive"/>
+                    </div>
+                                         
+                    <a href="#middle" class="product-badge <?=$products[$i]->getSaleCool()?>">
+                        <?=ucfirst($products[$i]->getSaleCool())?>
+                    </a>
+                  </div>
+                </div><!--product-block-wrap END-->
+                <?php endfor; ?>
+              </div>
+            <?php endfor; ?>
+        </div><!--popular items END-->   
+      
+      </div><!--popular-items-wrap END-->   
+    </div><!--row END-->  
+  </div><!--content main END-->  
+</div><!--container END-->   
+
+
+<div class="banner_bottom">
+  <div class="container">
+    <img src="<?=$this->basePath('img/banner_bottom.jpg')?>" class="img-responsive">
+  </div>
+</div>
+
+<?//=$this->headScript()->appendFile($this->basePath('js/work_script.js'))?>
+
+ 

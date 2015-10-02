@@ -1,0 +1,109 @@
+
+
+/*--------- content main ------------*/
+
+.filters-categories{
+    border: 4px solid #e7e7e7;
+    padding: 30px 20px;
+    margin-bottom: 30px;
+}
+.filters-categories h3{
+    margin: 0 0 30px;
+}
+.filters-categories ul{
+    padding: 0;
+}
+.filters-categories li{
+    list-style: none;
+    display: block;
+}
+.filters-categories li a{
+    padding: 20px 0;
+    display: block;
+    border-top: 1px solid #ececec;
+    color: #333;
+    position: relative;
+}
+.filters-categories li a:hover{
+    color: #2CC3E4;
+}
+.filters-categories .icon-list{
+    position: absolute;
+    right: 0;
+    top: 22px;
+}
+.filters-sort-box h3{
+margin-bottom: 20px;
+}
+.price-des{
+    color: #818181;
+    margin-top: 20px;
+}
+.price-des .info{
+    font-weight: 700;
+    color: #333;
+}
+
+/**/
+
+.filters-line {
+    margin-bottom: 40px;
+}
+.filters-line label{
+    margin:0 15px 0 0;
+}
+.filters-line .form-inline .form-control{
+    vertical-align: baseline;
+}
+.filters-line select{
+    width: 100%;
+}
+.filters-line-box{
+    padding: 0 22px;
+    border-right: 1px solid #ececec;
+}
+.filters-line-box:first-child{
+    padding-left: 15px;
+    }
+.filters-line-box:last-child{
+        border: none;
+        padding-right: 15px;
+    }
+.filters-line-box.filters-sort select {
+    width: 180px;
+    max-width: 180px;
+}
+
+.view .icon{
+    display: block;
+    width: 35px; height: 35px;
+    background: url("../img/view.png");
+    float: left;
+    margin-right: 5px;
+}
+.view .icon.boxes-view-icon{
+    background-position: 0 35px;
+}
+.view .icon.inline-view-icon{
+     background-position: 35px 35px;
+}
+.view .icon.boxes-view-icon:hover,
+.view.active .icon.boxes-view-icon{
+    background-position: 0 0;
+}
+.view .icon.inline-view-icon:hover,
+.view.active .icon.inline-view-icon{
+     background-position: 35px 0;
+}
+.filters-line-box.filters-perpage select{
+    margin-right: 15px;
+}
+.filters-line-box.filters-perpage span{
+    font-weight: 700;
+}
+
+.filters-line{
+    border-top: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+    padding: 20px 0;
+}
