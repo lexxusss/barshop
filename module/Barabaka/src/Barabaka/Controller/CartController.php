@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace Barabaka\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
