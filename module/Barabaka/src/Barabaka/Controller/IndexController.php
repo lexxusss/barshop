@@ -24,7 +24,7 @@ class IndexController extends AbstractActionController
 {
     public function indexAction() {
     }
-    
+     
     public function categoryAction() {
         $category = $this->params()->fromQuery('categ');
         $category_title = ucfirst(str_replace("_", " ", $category));
