@@ -258,6 +258,13 @@ select.form-control{
 .sub_categories_list>li>a.active .icon-list {
     background-position: 10px 0;
 }
+
+.items_less>div {
+    margin-left: 10%;
+}
+.items_more>div {
+    margin-left: 0%;
+}
 /*------------  additional styles  ---------*/
 
 .arrow_down{color:#c1c1c1;}

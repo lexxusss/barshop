@@ -30,64 +30,45 @@ class IndexController extends AbstractActionController
         $category_title = ucfirst(str_replace("_", " ", $category));
         $category = strtolower($category);
         
-        $display = new Display();   
+        new Container();
         
-        if ( $_SESSION[$category] ) {
-            $products_category_info = $_SESSION[$category];
+        if ( !$_SESSION[$category]['page'] )
+            $_SESSION[$category]['page'] = 1;
             
-            $pagination_arr = $products_category_info['pagination_arr'];
+        if ( !$_SESSION[$category]['sorting_by'] )
+            $_SESSION[$category]['sorting_by'] = "Price";
             
-            $page = $products_category_info['page'] ? $products_category_info['page'] : 1;
-            $current_sub_category_name = $products_category_info['current_sub_category_name']?$products_category_info['current_sub_category_name']:'All';
-            $items_per_page = $products_category_info['items_per_page'] ? $products_category_info['items_per_page'] : 6;
+        if ( !$_SESSION[$category]['items_per_page'] )
+            $_SESSION[$category]['items_per_page'] = 8;
             
-            new Container();
-            
-            ob_start();
-            $display->categoryProducts($pagination_arr, $items_per_page, $page);
-            $out = ob_get_clean();
-        } else {
-            $current_sub_category_name = 'All';
-            $items_per_page = 6;
-            $page = 1;
+        if ( !$_SESSION[$category]['products_var_dump'] ) {
             $critery = array($category => 'yes');
-            
             $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
             $products_manager = new Products($objectManager);
+            
+            $_SESSION[$category]['products_var_dump'] = $products_manager->getProductsBy($critery);
+        }
+                
+        if ( !$_SESSION[$category]['pagination_arr'] ) {
             $paginator = new Paginator();
             
-            $products_categ = $products_manager->getProductsBy($critery);
-            $pagination_arr = $paginator->pagine_array($products_categ, $items_per_page);
-            //echo "<pre>"; var_dump($pagination_arr); die();
+            $_SESSION[$category]['pagination_arr'] = $paginator->pagine_array($_SESSION[$category]['products_var_dump'], $_SESSION[$category]['items_per_page']);
+        }  
+                
+        if ( !$_SESSION[$category]['products'] ) {
+            $display = new Display();
             
             ob_start();
-            $display->categoryProducts($pagination_arr, $items_per_page, $page);
+            $display->categoryProducts($_SESSION[$category]['pagination_arr'], $_SESSION[$category]['items_per_page'], $_SESSION[$category]['page']);
             $out = ob_get_clean();
-        
-            new Container();
-        }
             
-        /*-------------  for debugging  --------------*/
-        $_SESSION[$category]['products_var_dump'] = $products_categ;
-        $_SESSION[$category]['pagination_arr'] = $pagination_arr;
-        /*-------------  for debugging  --------------*/
+            $_SESSION[$category]['products'] = $out;
+        }
         
-        /*-------------  for displaying  --------------*/
-        $_SESSION[$category]['products'] = $out;
-        /*-------------  for displaying  --------------*/
-        
-        /*-------------  for check if new values are differrent with old values  --------------*/
-        $_SESSION[$category]['current_sub_category_name'] = $current_sub_category_name;
-        $_SESSION[$category]['items_per_page'] = $items_per_page;
-        $_SESSION[$category]['sorting_by'] = 'Price';
-        $_SESSION[$category]['page'] = $page;
-        /*-------------  for check if new values are differrent with old values  --------------*/
-        
+        /*-------get session variables-------*/
         $products_category_info = $_SESSION[$category];
-        
-        $json_products_category = json_encode((array)$pagination_arr);
-        $current_session_sorting_by = $_SESSION[$category]['sorting_by'];
-        //echo "<pre>"; var_dump($json_session_sorting_by); die();
+        $json_products_category = json_encode((array)$_SESSION[$category]['pagination_arr']);
+        /*-------get session variables-------*/
         
         return array(
             'category' => $category,

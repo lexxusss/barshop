@@ -174,23 +174,10 @@
     }
     
     /*------------------ pagination filters ------------------*/
-    function setSubCategory(sub_category) {
-        var name_for_class = sub_category.substring(0, 6),
-        current_sub_categ = myTrim($('.sub_categories_list>li>a.active').text());
-        
-        if ( sub_category == current_sub_categ ) {
-            return false;
-        } else {
-            $('.sub_categories_list>li>a.active').removeClass('active');
-            $('.sub_categ_'+name_for_class).addClass('active');
-            $('#current_sub_category_name').text(sub_category);
-            
-            //pagination();
-        }
-    }
     
     function set_items_per_page(items) {
         var current_items = myTrim($('.current_items').text());
+        //alert(items); return;        
         
         if ( items == current_items ) {
             return false;

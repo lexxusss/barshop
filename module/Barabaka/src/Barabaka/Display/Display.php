@@ -19,13 +19,17 @@ class Display
     }
     
     public function categoryProducts($pagination_arr, $items_per_page, $page) {
-        $rows = $items_per_page / 3;
+        $items_in_row = $items_per_page > 4 ? 4 : 2;
+        $class_for_row = $items_per_page > 4 ? "items_more" : "items_less";
+        $class_for_cols = $items_per_page > 4 ? "col-md-3" : "col-md-4";
+        
+        $rows = $items_per_page / $items_in_row;
         ?>
         <!--Products start-->
             <?php for ( $i = 0, $item = 1; $i < $rows; $i++ ): ?>
-                <div class="row">
-                  <?php for ( $j = 0; $j < 3 && $pagination_arr[$page][$item]; $j++, ++$item ): ?>
-                      <div class="col-md-4 product-block-wrap">
+                <div class="row <?=$class_for_row?>">
+                  <?php for ( $j = 0; $j < $items_in_row && $pagination_arr[$page][$item]; $j++, ++$item ): ?>
+                      <div class="<?=$class_for_cols?> product-block-wrap">
                         <div class="product-block default">
                           <div class="product-block-info overlay">
                             <a href="" class="product-name">
